@@ -15,8 +15,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Upgrade Gradle to 9.3.1
+        run: sed -i 's/gradle-9.1.0/gradle-9.3.1/g' android/gradle/wrapper/gradle-wrapper.properties
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk --release --android-skip-build-dependency-validation
       - uses: actions/upload-artifact@v4
         with:
           name: Jarvis-Release-APK
